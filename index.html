@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Salon</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* General Styling */
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f5f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d4937b;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d4937b;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background-color: #d4937b;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #c47a60;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 200px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-content {
+            padding: 20px;
+        }
+
+        .service-content h3 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .service-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 80px 0;
+            background-color: #f0e9e4;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-img {
+            flex: 1;
+            height: 400px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Appointment Section */
+        .appointment {
+            padding: 80px 0;
+            background-color: #f9f5f0;
+        }
+
+        .appointment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-details i {
+            margin-right: 15px;
+            color: #d4937b;
+            font-size: 18px;
+        }
+
+        .map {
+            flex: 1;
+            height: 400px;
+            background-color: #eee;
+            border-radius: 10px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f0e9e4;
+        }
+
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 20px;
+        }
+
+        .testimonial-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #d4937b;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .testimonial-nav button {
+            background-color: #d4937b;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .testimonial-nav button:hover {
+            background-color: #c47a60;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #d4937b;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #d4937b;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #d4937b;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-img {
+                width: 100%;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 20px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content {
+                padding: 30px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Beauty Salon</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#appointment">Appointment</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">≡</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Beauty & Care For Your Hair</h1>
+                <p>Experience the ultimate pampering session with our professional hair and beauty services. Look and feel your best every day.</p>
+                <a href="#appointment" class="btn">Book Appointment</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Haircut & Styling</h3>
+                        <p>Professional haircuts and styling for all types of hair by our experienced stylists.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Hair Coloring</h3>
+                        <p>Transform your look with our premium hair coloring services and expert color matching.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Facial & Skin Care</h3>
+                        <p>Revitalize your skin with our facial treatments tailored to your specific skin type.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Manicure & Pedicure</h3>
+                        <p>Complete your look with our nail care services including manicures and pedicures.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Makeup</h3>
+                        <p>Professional makeup application for special events, weddings, or everyday glamour.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="service-content">
+                        <h3>Massage & Spa</h3>
+                        <p>Relax and rejuvenate with our massage and spa treatments for ultimate relaxation.</p>
+                        <a href="#appointment" class="btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+                <div class="gallery-item" style="background-image: url('/api/placeholder/300/300');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-img" style="background-image: url('/api/placeholder/600/400');"></div>
+                <div class="about-text">
+                    <h2>Welcome to Beauty Salon</h2>
+                    <p>With over 10 years of experience in the beauty industry, we pride ourselves on providing top-notch salon services to our clients. Our team of skilled professionals is dedicated to helping you look and feel your best.</p>
+                    <p>At Beauty Salon, we use only premium products and stay updated with the latest trends and techniques in the beauty world. Our salon provides a relaxing atmosphere where you can unwind while being pampered.</p>
+                    <p>We believe that every client is unique, which is why we tailor our services to meet individual needs and preferences. Your satisfaction is our ultimate goal!</p>
+                    <a href="#appointment" class="btn">Book An Appointment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="appointment" id="appointment">
+        <div class="container">
+            <h2 class="section-title">Book An Appointment</h2>
+            <div class="appointment-form">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="haircut">Haircut & Styling</option>
+                            <option value="coloring">Hair Coloring</option>
+                            <option value="facial">Facial & Skin Care</option>
+                            <option value="manicure">Manicure & Pedicure</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="massage">Massage & Spa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <select id="time" name="time" required>
+                            <option value="">Select a time</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Special Requests (Optional)</label>
+                        <textarea id="message" name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Book Appointment</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-slides" id="testimonialSlides">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"I've been coming to this salon for over a year now and I'm always impressed by the quality of service. The staff is friendly and professional, and I always leave feeling beautiful!"</p>
+                            <div class="testimonial-author">- Sarah Johnson</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The best salon in town! I got my hair colored here and received so many compliments. The stylists are true artists who know exactly what suits their clients."</p>
+                            <div class="testimonial-author">- Emily Parker</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"From the moment you walk in, you're treated like royalty. The ambiance is relaxing, and the services are top-notch. I wouldn't trust my hair to anyone else!"</p>
+                            <div class="testimonial-author">- Michael Thompson</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <button id="prevBtn">←</button>
+                    <button id="nextBtn">→</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <ul class="contact-details">
+                        <li>
+                            <i>📍</i>
+                            <div>
+                                <h4>Address</h4>
+                                <p>123 Beauty Street, City Center, Country</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i>📞</i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+1 234 567 8900</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i>✉️</i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@beautysalon.com</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i>⏰</i>
+                            <div>
+                                <h4>Hours</h4>
+                                <p>Monday - Friday: 9AM - 6PM<br>Saturday: 9AM - 4PM<br>Sunday: Closed</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="map">
+                    <!-- Map Placeholder -->
+                    <div style="background-color: #eee; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <p>Google Map Will Be Embedded Here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Beauty Salon</h3>
+                    <p>We are dedicated to making you look and feel your best. Visit us today for a transformative experience.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">FB</a>
+                        <a href="#" class="social-icon">IG</a>
+                        <a href="#" class="social-icon">TW</a>
+                        <a href="#" class="social-icon">YT</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#appointment">Appointment</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Haircut & Styling</a></li>
+                        <li><a href="#services">Hair Coloring</a></li>
+                        <li><a href="#services">Facial & Skin Care</a></li>
+                        <li><a href="#services">Manicure & Pedicure</a></li>
+                        <li><a href="#services">Makeup</a></li>
+                        <li><a href="#services">Massage & Spa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for special offers and updates.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Beauty Salon. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.remove('active');
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Testimonial Slider
+        const slides = document.getElementById('testimonialSlides');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.testimonial-slide').length;
+
+        function updateSlidePosition() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        });
+
+        // Auto slide testimonials
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }, 5000);
+
+        // Form Submission
+        const bookingForm = document.getElementById('bookingForm');
+        
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                message: document.getElementById('message').value
+            };
+            
+            // In a real application, you would send this data to your server
+            alert('Thank you for booking an appointment! We will contact you soon to confirm.');
+            bookingForm.reset();
+        });
+    </script>
+</body>
+</html>
